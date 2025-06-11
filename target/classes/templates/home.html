@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Početna</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+
+<h1>Dobrodošao u frizerski salon!
+css
+o nama
+korisnik panel
+fix preklapanje
+fix zakazivanje korisnik</h1>
+
+<p th:text="'Ulogovani ste kao: ' + ${korisnik}"></p>
+<p th:if="${param.denied}" style="color:red;">
+    Nemate pristup traženoj stranici.
+</p>
+<p th:if="${param.logout}" style="color:green;">
+    Uspešno ste se odjavili
+</p>
+
+</body>
+</html>

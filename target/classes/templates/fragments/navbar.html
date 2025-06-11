@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+
+<div th:fragment="navbar" style="background-color: #f2f2f2; padding: 10px;">
+
+    <!-- Ako je korisnik ulogovan -->
+    <div sec:authorize="isAuthenticated()">
+        <span th:text="'Ulogovani kao: ' + ${#authentication.name}" style="margin-right: 30px;"></span>
+
+        <a th:href="@{/home}">Početna</a>
+        <a th:href="@{/termini/novi}">Zakazivanje</a>
+
+        <span sec:authorize="hasRole('ADMIN')">
+        | <a th:href="@{/admin}">Admin panel</a>
+    </span>
+
+        | <form th:action="@{/logout}" method="post" style="display:inline;">
+        <button type="submit" style="background:none;border:none;color:blue;text-decoration:underline;cursor:pointer;">
+            Odjava
+        </button>
+    </form>
+    </div>
+
+    <!-- Ako NIJE ulogovan -->
+    <div sec:authorize="!isAuthenticated()">
+        <span>Dobrodošao, gost!</span>
+        | <a th:href="@{/home}">Početna</a>
+        | <a th:href="@{/login}">Prijavi se</a>
+    </div>
+
+</div>
+
+</body>
+</html>

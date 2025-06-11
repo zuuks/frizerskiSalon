@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Termin forma</title></head>
+<body>
+<h2>Zakazivanje termina</h2>
+
+<form th:action="@{/termini/sacuvaj}" th:object="${termin}" method="post">
+  <input type="hidden" th:field="*{id}" />
+
+  <div>
+    <label>Korisnik:</label>
+    <select th:field="*{korisnik.id}">
+      <option th:each="k : ${korisniciLista}" th:value="${k.id}" th:text="${k.ime}">Korisnik</option>
+    </select>
+  </div>
+
+  <div>
+    <label>Zaposleni:</label>
+    <select th:field="*{zaposleni.id}">
+      <option th:each="z : ${zaposleniLista}" th:value="${z.id}" th:text="${z.ime}">Frizer</option>
+    </select>
+  </div>
+
+  <div>
+    <label>Usluge:</label>
+    <select id="uslugaSelect" name="usluga.id" required>
+      <option value="" disabled selected>-- Izaberite uslugu --</option>
+      <option th:each="usluga : ${uslugeLista}"
+              th:value="${usluga.id}"
+              th:text="${usluga.naziv}"
+              th:selected="${usluga.id} == ${odabranaUslugaId}"></option>
+    </select>
+  </div>
+  <div>
+    <label>Datum:</label>
+    <input type="date" th:field="*{datum}" required />
+  </div>
+
+  <div>
+    <label>Vreme:</label>
+    <select id="vremeSelect" name="vreme" required>
+      <option value="" disabled selected>-- Izaberite vreme --</option>
+      <option th:each="vreme : ${vremena}"
+              th:value="${vreme}"
+              th:text="${vreme}">
+      </option>
+    </select>
+
+  </div>
+
+
+  <button type="submit">Sačuvaj</button>
+</form>
+<p th:if="${greska}" style="color:red;" th:text="${greska}"></p>
+
+
+<a th:href="@{/home}">Nazad</a>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const uslugaSelect = document.getElementById('uslugaSelect');
+    const vremeSelect = document.getElementById('vremeSelect');
+
+    if (uslugaSelect) {
+      uslugaSelect.addEventListener('change', function () {
+        const uslugaId = uslugaSelect.value;
+
+        if (uslugaId) {
+          fetch(`/termini/novi?uslugaId=${uslugaId}`)
+                  .then(response => response.text())
+                  .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const novaOpcijaLista = doc.querySelectorAll('#vremeSelect option');
+
+                    vremeSelect.innerHTML = '';
+                    novaOpcijaLista.forEach(opcija => {
+                      vremeSelect.appendChild(opcija);
+                    });
+                  });
+        }
+      });
+    }
+  });
+</script>
+
+</body>
+</html>

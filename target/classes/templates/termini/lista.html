@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Termini</title></head>
+<body>
+<h2>Lista zakazanih termina</h2>
+
+<a th:href="@{/termini/novi}">Zakazivanje novog termina</a>
+
+<table border="1">
+    <tr>
+        <th>Korisnik</th>
+        <th>Zaposleni</th>
+        <th>Datum</th>
+        <th>Vreme</th>
+        <th>Akcije</th>
+    </tr>
+    <tr th:each="t : ${termini}">
+        <td th:text="${t.korisnik?.ime}">korisnik</td>
+        <td th:text="${t.zaposleni?.ime}">frizer</td>
+        <td th:text="${t.datum}">datum</td>
+        <td th:text="${t.vreme}">vreme</td>
+        <td>
+            <a th:href="@{'/termini/izmeni/' + ${t.id}}">Izmeni</a> |
+            <a th:href="@{'/termini/obrisi/' + ${t.id}}">Obriši</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

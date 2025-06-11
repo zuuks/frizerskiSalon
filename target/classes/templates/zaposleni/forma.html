@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Zaposleni forma</title></head>
+<body>
+<h2 th:text="${zaposleni.id != null} ? 'Izmena zaposlenog' : 'Dodavanje zaposlenog'"></h2>
+
+<form th:action="@{/zaposleni/sacuvaj}" th:object="${zaposleni}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+    <div>
+        <label>Ime:</label>
+        <input type="text" th:field="*{ime}" required/>
+    </div>
+    <div>
+        <label>Specijalizacija:</label>
+        <input type="text" th:field="*{specijalizacija}" required/>
+    </div>
+    <button type="submit">Sačuvaj</button>
+</form>
+
+<a th:href="@{/zaposleni}">Nazad</a>
+</body>
+</html>

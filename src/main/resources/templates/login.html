@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Prijava</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+<!--<div th:replace="fragments/navbar :: *"></div>-->
+
+<h2>Prijava na sistem</h2>
+
+<form th:action="@{/login}" method="post">
+    <div>
+        <label>Email:</label>
+        <input type="text" name="username"/>
+    </div>
+    <div>
+        <label>Lozinka:</label>
+        <input type="password" name="password"/>
+    </div>
+    <div>
+        <button type="submit">Prijavi se</button>
+    </div>
+    <div th:if="${param.error}">
+        <p style="color: red;">Neispravni podaci</p>
+    </div>
+
+</form>
+
+
+</body>
+</html>

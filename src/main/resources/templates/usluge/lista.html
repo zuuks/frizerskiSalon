@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Usluge</title></head>
+<body>
+<h2>Lista usluga</h2>
+
+<a th:href="@{/usluge/nova}">Dodaj novu</a>
+
+<table border="1">
+    <tr>
+        <th>Naziv</th>
+        <th>Trajanje (min)</th>
+        <th>Cena</th>
+        <th>Akcije</th>
+    </tr>
+    <tr th:each="u : ${usluge}">
+        <td th:text="${u.naziv}">naziv</td>
+        <td th:text="${u.trajanjeMinuta}">trajanje</td>
+        <td th:text="${u.cena}">cena</td>
+        <td>
+            <a th:href="@{'/usluge/izmeni/' + ${u.id}}">Izmeni</a> |
+            <a th:href="@{'/usluge/obrisi/' + ${u.id}}">Obriši</a>
+        </td>
+    </tr>
+</table>
+
+<a th:href="@{/home}">Nazad na početnu</a>
+</body>
+</html>

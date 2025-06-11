@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Admin Panel</title>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      display: flex;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .sidebar {
+      width: 200px;
+      background-color: #f2f2f2;
+      padding: 20px;
+      height: 100vh;
+    }
+
+    .content {
+      flex-grow: 1;
+      padding: 20px;
+    }
+
+    .sidebar a {
+      display: block;
+      margin: 10px 0;
+      text-decoration: none;
+      color: #333;
+    }
+
+    iframe {
+      width: 100%;
+      height: 80vh;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="sidebar">
+  <h3>Admin panel</h3>
+  <a th:href="@{/zaposleni}" target="adminContent">Zaposleni</a>
+  <a th:href="@{/usluge}" target="adminContent">Usluge</a>
+  <a th:href="@{/termini}" target="adminContent">Termini</a>
+  <br>
+  <a th:href="@{/home}">Nazad na Početnu</a>
+</div>
+
+<div class="content">
+  <iframe name="adminContent"></iframe>
+</div>
+
+</body>
+</html>
