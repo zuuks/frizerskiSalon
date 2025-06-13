@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head><title>Termin forma</title></head>
 <body>
 <h2>Zakazivanje termina</h2>
@@ -9,21 +11,32 @@
 
   <div>
     <label>Korisnik:</label>
+
+    <!-- Prikaz samo za korisnike -->
+    <span sec:authorize="hasRole('KORISNIK')">
+    <input type="hidden" th:field="*{korisnik.id}" th:value="${ulogovaniKorisnik.id}" />
+    <span th:text="${ulogovaniKorisnik.ime}"></span>
+  </span>
+
+    <!-- Padajuća lista samo za admina -->
+    <span sec:authorize="hasRole('ADMIN')">
     <select th:field="*{korisnik.id}">
       <option th:each="k : ${korisniciLista}" th:value="${k.id}" th:text="${k.ime}">Korisnik</option>
     </select>
+  </span>
   </div>
 
   <div>
     <label>Zaposleni:</label>
-    <select th:field="*{zaposleni.id}">
+    <select th:field="*{zaposleni.id}" id="zaposleniSelect">
       <option th:each="z : ${zaposleniLista}" th:value="${z.id}" th:text="${z.ime}">Frizer</option>
     </select>
   </div>
 
+
   <div>
     <label>Usluge:</label>
-    <select id="uslugaSelect" name="usluga.id" required>
+    <select id="uslugaSelect" th:field="*{usluge}" required>
       <option value="" disabled selected>-- Izaberite uslugu --</option>
       <option th:each="usluga : ${uslugeLista}"
               th:value="${usluga.id}"
@@ -33,8 +46,9 @@
   </div>
   <div>
     <label>Datum:</label>
-    <input type="date" th:field="*{datum}" required />
+    <input type="date" th:field="*{datum}" id="datumInput" required />
   </div>
+
 
   <div>
     <label>Vreme:</label>
@@ -58,30 +72,37 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const uslugaSelect = document.getElementById('uslugaSelect');
+    const zaposleniSelect = document.getElementById('zaposleniSelect');
+    const datumInput = document.getElementById('datumInput');
     const vremeSelect = document.getElementById('vremeSelect');
 
-    if (uslugaSelect) {
-      uslugaSelect.addEventListener('change', function () {
-        const uslugaId = uslugaSelect.value;
+    function azurirajVremena() {
+      const uslugaId = uslugaSelect.value;
+      const zaposleniId = zaposleniSelect.value;
+      const datum = datumInput.value;
 
-        if (uslugaId) {
-          fetch(`/termini/novi?uslugaId=${uslugaId}`)
-                  .then(response => response.text())
-                  .then(html => {
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(html, 'text/html');
-                    const novaOpcijaLista = doc.querySelectorAll('#vremeSelect option');
+      if (uslugaId && zaposleniId && datum) {
+        fetch(`/termini/novi?uslugaId=${uslugaId}&zaposleniId=${zaposleniId}&datum=${datum}`)
+                .then(response => response.text())
+                .then(html => {
+                  const parser = new DOMParser();
+                  const doc = parser.parseFromString(html, 'text/html');
+                  const novaOpcijaLista = doc.querySelectorAll('#vremeSelect option');
 
-                    vremeSelect.innerHTML = '';
-                    novaOpcijaLista.forEach(opcija => {
-                      vremeSelect.appendChild(opcija);
-                    });
+                  vremeSelect.innerHTML = '';
+                  novaOpcijaLista.forEach(opcija => {
+                    vremeSelect.appendChild(opcija);
                   });
-        }
-      });
+                });
+      }
     }
+
+    uslugaSelect.addEventListener('change', azurirajVremena);
+    zaposleniSelect.addEventListener('change', azurirajVremena);
+    datumInput.addEventListener('change', azurirajVremena);
   });
 </script>
+
 
 </body>
 </html>

@@ -10,11 +10,14 @@
         <span th:text="'Ulogovani kao: ' + ${#authentication.name}" style="margin-right: 30px;"></span>
 
         <a th:href="@{/home}">Početna</a>
-        <a th:href="@{/termini/novi}">Zakazivanje</a>
+        <span sec:authorize="hasRole('KORISNIK')">
+            <a th:href="@{/termini/novi}">Zakazivanje</a>
+            <a th:href="@{/termini/moji}">Vaši termini</a>
+        </span>
 
         <span sec:authorize="hasRole('ADMIN')">
         | <a th:href="@{/admin}">Admin panel</a>
-    </span>
+        </span>
 
         | <form th:action="@{/logout}" method="post" style="display:inline;">
         <button type="submit" style="background:none;border:none;color:blue;text-decoration:underline;cursor:pointer;">

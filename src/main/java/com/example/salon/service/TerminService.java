@@ -4,6 +4,8 @@ import com.example.salon.model.Termin;
 import com.example.salon.model.Usluga;
 import com.example.salon.repository.TerminRepository;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +22,16 @@ public class TerminService {
     public List<Termin> findAll() {
         return terminRepository.findAll();
     }
+    public List<Termin> findByKorisnickoIme(String username) {
+        return terminRepository.findByKorisnik_Email(username);
+    }
+
+    public List<Termin> findByZaposleniIdAndDatum(Long id, LocalDate datum) {
+        return terminRepository.findByZaposleniIdAndDatum(id, datum);
+    }
+
+
+
 
     public Optional<Termin> findById(Long id) {
         return terminRepository.findById(id);
@@ -56,6 +68,8 @@ public class TerminService {
 
         return false;
     }
+
+
 
     public void save(Termin termin) {
         terminRepository.save(termin);

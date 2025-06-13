@@ -2,6 +2,9 @@ package com.example.salon.controller;
 
 import com.example.salon.model.Termin;
 import com.example.salon.model.Usluga;
+
+import java.security.Principal;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import com.example.salon.model.Zaposleni;
 import com.example.salon.model.Korisnik;
@@ -9,6 +12,7 @@ import com.example.salon.service.TerminService;
 import com.example.salon.service.UslugaService;
 import com.example.salon.service.ZaposleniService;
 import com.example.salon.service.KorisnikService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import java.util.ArrayList;
@@ -47,8 +51,12 @@ public class TerminController {
     @GetMapping("/novi")
     public String formaNoviTermin(
             @RequestParam(required = false) Long uslugaId,
+            @RequestParam(required = false) Long zaposleniId,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate datum,
+
             Model model
     ) {
+
         model.addAttribute("termin", new Termin());
         model.addAttribute("zaposleniLista", zaposleniService.findAll());
         model.addAttribute("uslugeLista", uslugaService.findAll());
@@ -56,10 +64,26 @@ public class TerminController {
 
         if (uslugaId != null) {
             Optional<Usluga> usluga = uslugaService.findById(uslugaId);
-            List<LocalTime> vremena = generisiSlotove(usluga.orElseThrow().getTrajanjeMinuta());
-            model.addAttribute("vremena", vremena);
-            model.addAttribute("odabranaUslugaId", uslugaId);
+            if (usluga.isPresent()) {
+                int trajanje = usluga.get().getTrajanjeMinuta();
+                List<LocalTime> sviSlotovi = generisiSlotove(trajanje);
+
+                if (zaposleniId != null && datum != null) {
+                    List<Termin> zauzeti = terminService.findByZaposleniIdAndDatum(zaposleniId, datum);
+
+                    List<LocalTime> dostupni = sviSlotovi.stream()
+                            .filter(slot -> zauzeti.stream().noneMatch(t -> t.getVreme().equals(slot)))
+                            .toList();
+
+                    model.addAttribute("vremena", dostupni);
+                } else {
+                    model.addAttribute("vremena", sviSlotovi);
+                }
+
+                model.addAttribute("odabranaUslugaId", uslugaId);
+            }
         }
+
 
         return "termini/forma";
     }
@@ -75,6 +99,18 @@ public class TerminController {
 
         return slotovi;
     }
+    @GetMapping("/moji")
+    public String mojiTermini(Model model, Principal principal) {
+        if (principal == null) return "redirect:/login";
+
+        String username = principal.getName();
+        List<Termin> termini = terminService.findByKorisnickoIme(username);
+
+        model.addAttribute("termini", termini);
+        model.addAttribute("praznaLista", termini.isEmpty());
+
+        return "termini/moji"; // napravicemo ovu stranicu
+    }
 
 
     @PostMapping("/sacuvaj")
@@ -86,11 +122,11 @@ public class TerminController {
             model.addAttribute("korisniciLista", korisnikService.findAll());
             model.addAttribute("vremena", List.of()); // ako zatreba
             model.addAttribute("greska", "Termin se preklapa sa postojećim!");
-            return "termini/forma";
+            return "termini/moji";
         }
 
         terminService.save(termin);
-        return "redirect:/home";
+        return "redirect:/termini/moji";
     }
 
 

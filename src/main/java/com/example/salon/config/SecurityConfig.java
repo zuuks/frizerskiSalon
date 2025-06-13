@@ -26,8 +26,8 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/", "/home", "/login", "/error", "/css/**").permitAll() // 🟢 javno
-                        .requestMatchers("/termini/novi").hasAnyRole("ADMIN", "KORISNIK")
-                        .requestMatchers("/zaposleni/**", "/usluge/**", "/termini/**").hasRole("ADMIN")
+                        .requestMatchers("/termini/novi", "/termini/moji", "/termini/sacuvaj").hasAnyRole("ADMIN", "KORISNIK")
+                        .requestMatchers("/zaposleni/**", "/usluge/**", "/termini/**", "/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated() // 🔒 sve ostalo
                 )
                 .formLogin(form -> form
