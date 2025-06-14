@@ -1,28 +1,23 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <title>Početna</title>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-<body>
+
+<body th:class="${#authorization.expression('isAuthenticated()')} ? 'auth-background' : 'guest-background'">
+
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
+<div class="container">
+    <h1>Dobrodošao u frizerski salon!</h1>
 
-<h1>Dobrodošao u frizerski salon!
-css
-o nama
-korisnik panel
-login register
-obrisiPreklapanjaKod
-fix zakazivanje korisnik</h1>
-
-<p th:text="'Ulogovani ste kao: ' + ${korisnik}"></p>
-<p th:if="${param.denied}" style="color:red;">
-    Nemate pristup traženoj stranici.
-</p>
-<p th:if="${param.logout}" style="color:green;">
-    Uspešno ste se odjavili
-</p>
+    <p sec:authorize="isAuthenticated()" th:text="'Ulogovani ste kao: ' + ${korisnik}"></p>
+    <p sec:authorize="!isAuthenticated()">Ulogovani ste kao: Gost</p>
+</div>
 
 </body>
 </html>

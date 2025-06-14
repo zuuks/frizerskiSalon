@@ -25,7 +25,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/", "/home", "/login", "/error", "/css/**").permitAll() // 🟢 javno
+                        .requestMatchers("/", "/home", "/login", "/error", "/css/**","/images/**").permitAll() // 🟢 javno
                         .requestMatchers("/termini/novi", "/termini/moji", "/termini/sacuvaj").hasAnyRole("ADMIN", "KORISNIK")
                         .requestMatchers("/zaposleni/**", "/usluge/**", "/termini/**", "/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated() // 🔒 sve ostalo

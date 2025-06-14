@@ -1,0 +1,93 @@
+/* Opšte postavke */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Pozadina za ulogovane korisnike */
+.auth-background {
+    background: url('../images/salon-bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+}
+
+/* Pozadina za goste */
+.guest-background {
+    background: url('../images/salon-bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+}
+
+/* Navbar stil */
+.navbar {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px 20px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* Leva i desna strana u navbaru */
+.navbar .left {
+    flex: 1;
+}
+
+.navbar .right {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+/* Linkovi u navbaru */
+.navbar a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.navbar a:hover {
+    color: #00bcd4;
+}
+
+/* Dugme za odjavu stil */
+.logout-form {
+    display: inline;
+}
+
+.nav-link-button {
+    background: none;
+    border: none;
+    color: white;
+    font: inherit;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
+}
+
+.nav-link-button:hover {
+    color: #ff5722;
+}
+
+/* Glavni sadržaj kutija */
+.container {
+    max-width: 800px;
+    margin: 100px auto;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 40px;
+    border-radius: 10px;
+    color: white;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.container h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    line-height: 1.4;
+    text-transform: uppercase;
+}
