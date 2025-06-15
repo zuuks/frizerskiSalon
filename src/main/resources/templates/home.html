@@ -15,8 +15,24 @@
 <div class="container">
     <h1>Dobrodošao u frizerski salon!</h1>
 
-    <p sec:authorize="isAuthenticated()" th:text="'Ulogovani ste kao: ' + ${korisnik}"></p>
-    <p sec:authorize="!isAuthenticated()">Ulogovani ste kao: Gost</p>
+    <!-- Za ULOGOVANE korisnike -->
+    <div sec:authorize="isAuthenticated()">
+        <p th:text="'Ulogovani ste kao: ' + ${korisnik}"></p>
+        <a th:href="@{/termini/novi}">
+            <button>Rezerviši termin</button>
+        </a>
+    </div>
+
+    <!-- Za GOSTE -->
+    <div sec:authorize="!isAuthenticated()">
+        <p>Dobrodošli! Prijavite se ili registrujte da biste zakazali termin.</p>
+        <a th:href="@{/login}">
+            <button>Prijavi se</button>
+        </a>
+        <a th:href="@{/register}">
+            <button>Registruj se</button>
+        </a>
+    </div>
 </div>
 
 </body>

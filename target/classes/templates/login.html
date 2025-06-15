@@ -3,30 +3,40 @@
 <head>
     <title>Prijava</title>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-<body>
-<!--<div th:replace="fragments/navbar :: *"></div>-->
 
-<h2>Prijava na sistem</h2>
 
-<form th:action="@{/login}" method="post">
-    <div>
-        <label>Email:</label>
-        <input type="text" name="username"/>
-    </div>
-    <div>
-        <label>Lozinka:</label>
-        <input type="password" name="password"/>
-    </div>
-    <div>
-        <button type="submit">Prijavi se</button>
-    </div>
-    <div th:if="${param.error}">
-        <p style="color: red;">Neispravni podaci</p>
-    </div>
+<div class="form-container">
+    <h2>Prijava na sistem</h2>
 
-</form>
+    <form th:action="@{/login}" method="post" class="form-box">
 
+        <div class="form-group">
+            <label for="username">Email:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Lozinka:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+
+        <button type="submit" class="btn">Prijavi se</button>
+
+        <div th:if="${param.error}">
+            <p class="error">Neispravni podaci</p>
+        </div>
+
+    </form>
+
+    <p class="switch-link">
+        Nemate nalog? <a th:href="@{/register}">Registrujte se</a>
+    </p>
+    <p class="switch-link">
+        <a th:href="@{/home}">Pocetna</a>
+    </p>
+</div>
 
 </body>
 </html>

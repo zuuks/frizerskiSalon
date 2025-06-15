@@ -16,6 +16,7 @@ public class Korisnik {
 
     private String lozinka;
 
+
     @ManyToOne
     @JoinColumn(name = "rola_id")
     private Rola rola;
