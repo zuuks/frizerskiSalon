@@ -53,14 +53,18 @@ public class TerminController {
             @RequestParam(required = false) Long uslugaId,
             @RequestParam(required = false) Long zaposleniId,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate datum,
-
-            Model model
+            Model model,
+            Principal principal
     ) {
-
         model.addAttribute("termin", new Termin());
         model.addAttribute("zaposleniLista", zaposleniService.findAll());
         model.addAttribute("uslugeLista", uslugaService.findAll());
         model.addAttribute("korisniciLista", korisnikService.findAll());
+
+        if (principal != null) {
+            Korisnik ulogovani = korisnikService.findByEmail(principal.getName());
+            model.addAttribute("ulogovaniKorisnik", ulogovani);
+        }
 
         if (uslugaId != null) {
             Optional<Usluga> usluga = uslugaService.findById(uslugaId);
@@ -114,13 +118,19 @@ public class TerminController {
 
 
     @PostMapping("/sacuvaj")
-    public String sacuvajTermin(@ModelAttribute Termin termin, Model model) {
+    public String sacuvajTermin(@ModelAttribute Termin termin, Model model, Principal principal) {
+        Korisnik ulogovani = korisnikService.findByEmail(principal.getName());
+
+        if (ulogovani.getRola().getNaziv().equals("KORISNIK")) {
+            termin.setKorisnik(ulogovani); // sprečava "prepravljanje" od strane korisnika
+        }
+
         if (terminService.postojiPreklapanje(termin)) {
             model.addAttribute("termin", termin);
             model.addAttribute("zaposleniLista", zaposleniService.findAll());
             model.addAttribute("uslugeLista", uslugaService.findAll());
             model.addAttribute("korisniciLista", korisnikService.findAll());
-            model.addAttribute("vremena", List.of()); // ako zatreba
+            model.addAttribute("vremena", List.of());
             model.addAttribute("greska", "Termin se preklapa sa postojećim!");
             return "termini/moji";
         }

@@ -21,6 +21,9 @@ public class KorisnikService {
     public List<Korisnik> findAll() {
         return korisnikRepository.findAll();
     }
+    public Korisnik findByEmail(String email) {
+        return korisnikRepository.findByEmail(email);
+    }
 
     public void registrujNovogKorisnika(Korisnik korisnik) {
         String sifrovanaLozinka = passwordEncoder.encode(korisnik.getLozinka());
