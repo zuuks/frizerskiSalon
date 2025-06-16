@@ -37,11 +37,11 @@ Sistem za upravljanje zakazivanjem termina u frizerskom salonu sa korisničkom i
 
 ## ✅ Funkcionalnosti
 
-- ✅ Registracija korisnika (automatski dobija rolu `KORISNIK`)
-- ✅ Login / logout
-- ✅ Zakazivanje termina (korisnik za sebe, admin za bilo koga)
-- ✅ Pregled svojih termina (`/termini/moji`)
-- ✅ Admin panel za upravljanje sa CRUD operacijama:
+- Registracija korisnika (automatski dobija rolu `KORISNIK`)
+- Login / logout
+- Zakazivanje termina (korisnik za sebe, admin za bilo koga)
+- Pregled svojih termina (`/termini/moji`)
+- Admin panel za upravljanje sa CRUD operacijama:
   - zaposlenima
   - uslugama
   - svim terminima
@@ -69,13 +69,13 @@ Sistem za upravljanje zakazivanjem termina u frizerskom salonu sa korisničkom i
 
 ## ▶️ Pokretanje aplikacije
 
-1. Kloniraj repozitorijum:
+1. Klonirati repozitorijum:
    ```bash
    git clone https://github.com/ime-korisnika/salon-app.git
    cd salon-app
-2. Konfiguriši application.properties
+2. Konfigurisati application.properties
     spring.datasource.url=jdbc:mysql://localhost:3306/salon
     spring.datasource.username=root
     spring.datasource.password=lozinka
-3. Pokreni aplikaciju:
+3. Pokrenuti aplikaciju:
     ./mvnw spring-boot:run
