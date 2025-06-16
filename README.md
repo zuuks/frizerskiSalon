@@ -15,13 +15,13 @@ Sistem za upravljanje zakazivanjem termina u frizerskom salonu sa korisničkom i
 
 ## 🏗️ Struktura projekta
 
-├── model/ # Entiteti (Korisnik, Termin, Zaposleni...)
-├── repository/ # Spring Data JPA repozitorijumi
-├── service/ # Poslovna logika
-├── controller/ # HTTP rutiranje
-├── config/ # Security konfiguracija
-├── templates/ # Thymeleaf HTML fajlovi
-└── static/css/ # Stilovi
+- ├── model/ # Entiteti (Korisnik, Termin, Zaposleni...)
+- ├── repository/ # Spring Data JPA repozitorijumi
+- ├── service/ # Poslovna logika
+- ├── controller/ # HTTP rutiranje
+- ├── config/ # Security konfiguracija
+- ├── templates/ # Thymeleaf HTML fajlovi
+- └── static/css/ # Stilovi
 
 ---
 
