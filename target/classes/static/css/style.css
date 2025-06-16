@@ -4,6 +4,7 @@ html, body {
     padding: 0;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
 }
 
 body {
@@ -15,6 +16,13 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
 }
+.error-message {
+    color: red;
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
 /* Navbar stil */
 .navbar-modern {
     background: rgba(0, 0, 0, 0.85);

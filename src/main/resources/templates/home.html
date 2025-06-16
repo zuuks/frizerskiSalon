@@ -30,6 +30,7 @@
         <a th:href="@{/login}"><button class="hero-button">Prijavi se</button></a>
         <a th:href="@{/register}"><button class="hero-button">Registruj se</button></a>
     </div>
+    <p th:if="${param.greska}" class="error-message">Greška pri unosu podataka</p>
 </div>
 <div th:replace="~{fragments/footer :: footer}"></div>
 
