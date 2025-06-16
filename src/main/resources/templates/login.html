@@ -6,6 +6,7 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
+<body >
 
 <div class="form-container">
     <h2>Prijava na sistem</h2>
@@ -25,16 +26,16 @@
         <button type="submit" class="btn">Prijavi se</button>
 
         <div th:if="${param.error}">
-            <p class="error">Neispravni podaci</p>
+            <p class="error">Neispravni podaci. Pokušajte ponovo.</p>
         </div>
-
     </form>
 
     <p class="switch-link">
         Nemate nalog? <a th:href="@{/register}">Registrujte se</a>
     </p>
-    <p >
-        <a th:href="@{/home}">Pocetna</a>
+
+    <p class="switch-link">
+        <a th:href="@{/home}">← Povratak na početnu</a>
     </p>
 </div>
 

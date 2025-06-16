@@ -1,62 +1,73 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><title>Termin forma</title></head>
-<body>
-<h2>Zakazivanje termina</h2>
+<head>
+  <title>Zakazivanje termina</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/termini/forma.css}">
+</head>
+<body class="auth-background">
 
-<form th:action="@{/termini/sacuvaj}" th:object="${termin}" method="post">
-  <input type="hidden" th:field="*{id}" />
+<!-- Navbar -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 
-  <div>
-    <label>Korisnik:</label>
-    <select th:field="*{korisnik.id}">
-      <option th:each="k : ${korisniciLista}" th:value="${k.id}" th:text="${k.ime}">Korisnik</option>
-    </select>
-  </div>
+<!-- Forma -->
+<div class="form-container">
+  <h2>Zakazivanje termina</h2>
 
-  <div>
-    <label>Zaposleni:</label>
-    <select th:field="*{zaposleni.id}" id="zaposleniSelect">
-      <option th:each="z : ${zaposleniLista}" th:value="${z.id}" th:text="${z.ime}">Frizer</option>
-    </select>
-  </div>
+  <form th:action="@{/termini/sacuvaj}" th:object="${termin}" method="post">
+    <input type="hidden" th:field="*{id}"/>
 
+    <div class="form-group">
+      <label>Korisnik:</label>
+      <select th:field="*{korisnik.id}">
+        <option th:each="k : ${korisniciLista}" th:value="${k.id}" th:text="${k.ime}"></option>
+      </select>
+    </div>
 
-  <div>
-    <label>Usluge:</label>
-    <select id="uslugaSelect" th:field="*{usluge}" required>
-      <option value="" disabled selected>-- Izaberite uslugu --</option>
-      <option th:each="usluga : ${uslugeLista}"
-              th:value="${usluga.id}"
-              th:text="${usluga.naziv}"
-              th:selected="${usluga.id} == ${odabranaUslugaId}"></option>
-    </select>
-  </div>
-  <div>
-    <label>Datum:</label>
-    <input type="date" th:field="*{datum}" id="datumInput" required />
-  </div>
+    <div class="form-group">
+      <label>Zaposleni:</label>
+      <select th:field="*{zaposleni.id}" id="zaposleniSelect">
+        <option th:each="z : ${zaposleniLista}" th:value="${z.id}" th:text="${z.ime}"></option>
+      </select>
+    </div>
 
+    <div class="form-group">
+      <label>Usluga:</label>
+      <select id="uslugaSelect" th:field="*{usluge}" required>
+        <option value="" disabled selected>-- Izaberite uslugu --</option>
+        <option th:each="usluga : ${uslugeLista}"
+                th:value="${usluga.id}"
+                th:text="${usluga.naziv}"
+                th:selected="${usluga.id} == ${odabranaUslugaId}"></option>
+      </select>
+    </div>
 
-  <div>
-    <label>Vreme:</label>
-    <select id="vremeSelect" name="vreme" required>
-      <option value="" disabled selected>-- Izaberite vreme --</option>
-      <option th:each="vreme : ${vremena}"
-              th:value="${vreme}"
-              th:text="${vreme}">
-      </option>
-    </select>
+    <div class="form-group">
+      <label>Datum:</label>
+      <input type="date" th:field="*{datum}" id="datumInput" required/>
+    </div>
 
-  </div>
+    <div class="form-group">
+      <label>Vreme:</label>
+      <select id="vremeSelect" name="vreme" required>
+        <option value="" disabled selected>-- Izaberite vreme --</option>
+        <option th:each="vreme : ${vremena}"
+                th:value="${vreme}"
+                th:text="${vreme}">
+        </option>
+      </select>
+    </div>
 
+    <div class="form-buttons">
+      <button type="submit">Sačuvaj</button>
+      <a th:href="@{/home}" class="cancel-button">Nazad</a>
+    </div>
 
-  <button type="submit">Sačuvaj</button>
-</form>
-<p th:if="${greska}" style="color:red;" th:text="${greska}"></p>
+    <p th:if="${greska}" class="error" th:text="${greska}"></p>
+  </form>
+</div>
 
-
-<a th:href="@{/home}">Nazad</a>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const uslugaSelect = document.getElementById('uslugaSelect');
@@ -90,7 +101,7 @@
     datumInput.addEventListener('change', azurirajVremena);
   });
 </script>
-
+<div th:replace="~{fragments/footer :: footer}"></div>
 
 </body>
 </html>

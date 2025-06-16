@@ -3,41 +3,33 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
 
-<div th:fragment="navbar" class="navbar">
-
-    <!-- Leva strana: info o korisniku -->
-    <div class="left">
-        <span sec:authorize="isAuthenticated()" th:text="'Ulogovani kao: ' + ${#authentication.name}"></span>
-        <span sec:authorize="!isAuthenticated()">Dobrodošao, gost!</span>
+<div th:fragment="navbar" class="navbar-modern">
+    <div class="nav-left">
+        <span sec:authorize="isAuthenticated()" th:text="'👤 ' + ${#authentication.name}"></span>
+        <span sec:authorize="!isAuthenticated()">👋 Dobrodošao, gost!</span>
     </div>
 
-    <!-- Desna strana: navigacija -->
-    <div class="right">
+    <div class="nav-right">
+        <a th:href="@{/home}" class="nav-link">Početna</a>
 
-        <a th:href="@{/home}">Početna</a>
-
-        <!-- Linkovi za KORISNIKA -->
         <span sec:authorize="hasRole('KORISNIK')">
-            <a th:href="@{/termini/novi}">Zakazivanje</a>
-            <a th:href="@{/termini/moji}">Vaši termini</a>
+            <a th:href="@{/termini/novi}" class="nav-link">Zakazivanje</a>
+            <a th:href="@{/termini/moji}" class="nav-link">Vaši termini</a>
         </span>
 
-        <!-- Link za ADMINA -->
         <span sec:authorize="hasRole('ADMIN')">
-            <a th:href="@{/admin}">Admin panel</a>
+            <a th:href="@{/admin}" class="nav-link">Admin panel</a>
         </span>
 
-        <!-- Odjava / Prijava -->
         <span sec:authorize="isAuthenticated()">
             <form th:action="@{/logout}" method="post" class="logout-form">
-    <button type="submit" class="nav-link-button">Odjava</button>
-</form>
-
+                <button class="nav-btn">Odjava</button>
+            </form>
         </span>
+
         <span sec:authorize="!isAuthenticated()">
-            <a th:href="@{/login}">Prijavi se</a>
+            <a th:href="@{/login}" class="nav-link">Prijavi se</a>
         </span>
-
     </div>
 </div>
 

@@ -1,148 +1,204 @@
-/* Opšte postavke */
-body, html {
+html, body {
+    height: 100%;
     margin: 0;
     padding: 0;
-    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+body {
     font-family: 'Segoe UI', sans-serif;
 }
 
-/* Pozadina za ulogovane korisnike */
-.auth-background {
-    background: url('../images/salon-bg.jpg') no-repeat center center fixed;
+.auth-background{
+    background-image: url("../images/salon-bg.jpg");
     background-size: cover;
-    color: white;
+    background-repeat: no-repeat;
 }
-
-/* Pozadina za goste */
-.guest-background {
-    background: url('../images/salon-bg.jpg') no-repeat center center fixed;
-    background-size: cover;
-    color: white;
-}
-
 /* Navbar stil */
-.navbar {
-    background-color: rgba(0, 0, 0, 0.7);
-    padding: 10px 20px;
-    color: white;
+.navbar-modern {
+    background: rgba(0, 0, 0, 0.85);
+    padding: 15px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-weight: bold;
-    font-size: 14px;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
 }
 
-/* Leva i desna strana u navbaru */
-.navbar .left {
+.nav-left {
     flex: 1;
 }
 
-.navbar .right {
+.nav-right {
     display: flex;
-    gap: 15px;
+    gap: 20px;
     align-items: center;
 }
 
-/* Linkovi u navbaru */
-.navbar a {
-    color: white;
+.nav-link {
+    color: #fff;
     text-decoration: none;
-    transition: color 0.2s ease;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
 }
 
-.navbar a:hover {
-    color: #00bcd4;
+.nav-link:hover {
+    background-color: #00bcd4;
 }
 
-/* Dugme za odjavu stil */
 .logout-form {
-    display: inline;
+    margin: 0;
 }
 
-.nav-link-button {
-    background: none;
-    border: none;
+.nav-btn {
+    background-color: #f44336;
     color: white;
-    font: inherit;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
     cursor: pointer;
-    text-decoration: underline;
-    padding: 0;
+    transition: background-color 0.2s ease;
 }
 
-.nav-link-button:hover {
-    color: #ff5722;
+.nav-btn:hover {
+    background-color: #d32f2f;
 }
 
-/* Glavni sadržaj kutija */
-.container {
+/* Home stil */
+.home-container {
     max-width: 800px;
     margin: 100px auto;
     background-color: rgba(0, 0, 0, 0.6);
-    padding: 40px;
-    border-radius: 10px;
+    padding: 50px;
+    border-radius: 12px;
     color: white;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
     text-align: center;
 }
 
-.container h1 {
-    font-size: 32px;
-    margin-bottom: 20px;
-    line-height: 1.4;
+.hero-title {
+    font-size: 36px;
+    margin-bottom: 25px;
     text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
+.hero-subtext {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
 
-
-.form-container {
-    width: 400px;
-    margin: 80px auto;
-    background-color: rgba(0, 0, 0, 0.7);
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+.hero-button {
+    background-color: #00bcd4;
     color: white;
-    text-align: center;
+    border: none;
+    padding: 12px 24px;
+    margin: 5px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
 }
+
+.hero-button:hover {
+    background-color: #0097a7;
+}
+/* Form container za login i register */
+.form-container {
+    max-width: 480px;            /* šire forme */
+    width: 90%;
+    margin: auto;
+    margin-top: 80px;
+    padding: 30px 25px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+
 
 .form-container h2 {
     margin-bottom: 25px;
-    font-size: 24px;
+    font-size: 28px;
+}
+
+.form-box {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .form-group {
-    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
     text-align: left;
 }
 
 .form-group label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: bold;
+    margin-bottom: 5px;
+    font-weight: 500;
 }
 
 .form-group input {
-    width: 100%;
-    padding: 8px;
-    border-radius: 4px;
+    padding: 10px;
     border: none;
+    border-radius: 6px;
+    font-size: 15px;
 }
 
-button[type="submit"] {
+.btn {
     background-color: #00bcd4;
     color: white;
     border: none;
-    padding: 10px 18px;
+    padding: 12px;
     font-size: 16px;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
-button[type="submit"]:hover {
+.btn:hover {
     background-color: #0097a7;
 }
 
-.form-container a {
+.switch-link {
+    margin-top: 15px;
+}
+
+.switch-link a {
     color: #00bcd4;
     text-decoration: none;
+}
+
+.switch-link a:hover {
+    text-decoration: underline;
+}
+
+.error {
+    color: #ff6b6b;
+    font-weight: bold;
+}
+
+.footer {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    text-align: center;
+    padding: 15px 10px;
+    font-size: 14px;
+    margin-top: auto; /* magija koja gura footer na dno */
+    border-top: 2px solid #00bcd4;
+    width: 100%;
+}
+
+.footer a {
+    color: #00bcd4;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
 }

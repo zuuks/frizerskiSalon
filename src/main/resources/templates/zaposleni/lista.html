@@ -1,25 +1,33 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head><title>Zaposleni</title></head>
-<body>
+
+<head>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/zaposleni/lista.css}">
+</head>
+
+
 <h2>Lista zaposlenih</h2>
+<div class="container">
 
-<a th:href="@{/zaposleni/novi}">Dodaj novog</a>
+  <a th:href="@{/zaposleni/novi}" class="add-button">+ Dodaj novog zaposlenog</a>
 
-<table border="1">
-  <tr>
-    <th>Ime</th>
-    <th>Specijalizacija</th>
-    <th>Akcije</th>
-  </tr>
-  <tr th:each="z : ${zaposleniLista}">
-    <td th:text="${z.ime}">Ime</td>
-    <td th:text="${z.specijalizacija}">Specijalizacija</td>
-    <td>
-      <a th:href="@{'/zaposleni/izmeni/' + ${z.id}}">Izmeni</a> |
-      <a th:href="@{'/zaposleni/obrisi/' + ${z.id}}">Obriši</a>
-    </td>
-  </tr>
-</table>
-</body>
-</html>
+  <table>
+    <thead>
+    <tr>
+      <th>Ime</th>
+      <th>Specijalizacija</th>
+      <th>Akcije</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="z : ${zaposleniLista}">
+      <td th:text="${z.ime}">Ime</td>
+      <td th:text="${z.specijalizacija}">Specijalizacija</td>
+      <td class="actions">
+        <a th:href="@{'/zaposleni/izmeni/' + ${z.id}}" class="edit">Izmeni</a>
+        <a th:href="@{'/zaposleni/obrisi/' + ${z.id}}" class="delete">Obriši</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>

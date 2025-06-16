@@ -1,39 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
 <head>
     <title>Početna</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
-<body th:class="${#authorization.expression('isAuthenticated()')} ? 'auth-background' : 'guest-background'">
+<body class="auth-background">
 
+<!-- Navbar -->
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<div class="container">
-    <h1>Dobrodošao u frizerski salon!</h1>
+<!-- Glavni kontejner -->
+<div class="home-container">
+    <h1 class="hero-title">Dobrodošao u frizerski salon!</h1>
 
-    <!-- Za ULOGOVANE korisnike -->
+    <!-- Ulogovani korisnik -->
     <div sec:authorize="isAuthenticated()">
-        <p th:text="'Ulogovani ste kao: ' + ${korisnik}"></p>
+        <p th:text="'Ulogovani ste kao: ' + ${korisnik}" class="hero-subtext"></p>
         <a th:href="@{/termini/novi}">
-            <button>Rezerviši termin</button>
+            <button class="hero-button">Rezerviši termin</button>
         </a>
     </div>
 
-    <!-- Za GOSTE -->
+    <!-- Gost -->
     <div sec:authorize="!isAuthenticated()">
-        <p>Dobrodošli! Prijavite se ili registrujte da biste zakazali termin.</p>
-        <a th:href="@{/login}">
-            <button>Prijavi se</button>
-        </a>
-        <a th:href="@{/register}">
-            <button>Registruj se</button>
-        </a>
+        <p class="hero-subtext">Dobrodošli! Prijavite se ili registrujte da biste zakazali termin.</p>
+        <a th:href="@{/login}"><button class="hero-button">Prijavi se</button></a>
+        <a th:href="@{/register}"><button class="hero-button">Registruj se</button></a>
     </div>
 </div>
+<div th:replace="~{fragments/footer :: footer}"></div>
 
 </body>
 </html>

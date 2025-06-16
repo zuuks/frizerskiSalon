@@ -2,37 +2,51 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Vaši termini</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/termini/moji.css}">
 </head>
-<body>
+<body class="auth-background">
+
+<!-- Navbar -->
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<h2>Vaši zakazani termini</h2>
+<!-- Glavni kontejner -->
+<div class="termini-container">
+  <h2>Vaši zakazani termini</h2>
 
-<div th:if="${praznaLista}">
-  <p>Trenutno nemate zakazanih termina.</p>
+  <div th:if="${praznaLista}" class="no-termins">
+    <p>Trenutno nemate zakazanih termina.</p>
+  </div>
+
+  <table th:if="!${praznaLista}" class="termini-table">
+    <thead>
+    <tr>
+      <th>Datum</th>
+      <th>Vreme</th>
+      <th>Zaposleni</th>
+      <th>Usluge</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="t : ${termini}">
+      <td th:text="${t.datum}"></td>
+      <td th:text="${t.vreme}"></td>
+      <td th:text="${t.zaposleni.ime}"></td>
+      <td>
+        <span th:each="u : ${t.usluge}" th:text="${u.naziv} + ' '"></span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="form-buttons">
+    <a th:href="@{/termini/novi}">
+      <button>Zakazi termin</button>
+    </a>
+  </div>
 </div>
-
-<table th:if="!${praznaLista}" border="1">
-  <tr>
-    <th>Datum</th>
-    <th>Vreme</th>
-    <th>Zaposleni</th>
-    <th>Usluge</th>
-  </tr>
-  <tr th:each="t : ${termini}">
-    <td th:text="${t.datum}"></td>
-    <td th:text="${t.vreme}"></td>
-    <td th:text="${t.zaposleni.ime}"></td>
-    <td>
-      <span th:each="u : ${t.usluge}" th:text="${u.naziv} + ' '"></span>
-    </td>
-  </tr>
-</table>
-
-<br/>
-<a th:href="@{/termini/novi}">
-  <button>Zakazi termin</button>
-</a>
+<div th:replace="~{fragments/footer :: footer}"></div>
 
 </body>
 </html>
