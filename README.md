@@ -7,7 +7,7 @@ Sistem za upravljanje zakazivanjem termina u frizerskom salonu sa korisničkom i
 ## 🧰 Tehnologije
 
 - **Backend**: Spring Boot, Spring Security, Spring Data JPA  
-- **Frontend**: Thymeleaf, HTML, CSS  
+- **Frontend**: Thymeleaf, HTML, CSS, JS  
 - **Baza**: MySQL  
 - **Ostalo**: BCrypt za šifrovanje lozinki
 
@@ -27,7 +27,7 @@ Sistem za upravljanje zakazivanjem termina u frizerskom salonu sa korisničkom i
 
 ## 🗃️ Baza podataka
 
-- **Entiteti**: `Korisnik`, `Rola`, `Zaposleni`, `Usluga`, `Termin`
+- **Entiteti**: `Korisnik`, `Rola`, `Zaposleni`, `Usluga`, `Termin`, `Termin_Usluga` 
 - **Veze**:
   - `Korisnik` → `Rola` *(ManyToOne)*
   - `Termin` → `Zaposleni`, `Korisnik` *(ManyToOne)*
@@ -41,7 +41,7 @@ Sistem za upravljanje zakazivanjem termina u frizerskom salonu sa korisničkom i
 - ✅ Login / logout
 - ✅ Zakazivanje termina (korisnik za sebe, admin za bilo koga)
 - ✅ Pregled svojih termina (`/termini/moji`)
-- ✅ Admin panel za upravljanje:
+- ✅ Admin panel za upravljanje sa CRUD operacijama:
   - zaposlenima
   - uslugama
   - svim terminima
@@ -54,12 +54,12 @@ Sistem za upravljanje zakazivanjem termina u frizerskom salonu sa korisničkom i
 - Role-based autorizacija:
   - `KORISNIK`: može samo svoje termine
   - `ADMIN`: može sve
-- Automatsko logovanje korisnika nakon registracije
+- Blokiranje pristupa `KORISNIK` admin panel-u
 - Custom error handler (`/error` → redirect na `/home?greska=...`)
 
 ---
 
-## 🎨 UI/UX
+## 🎨 UI
 
 - Responsive forme i tabele
 - Navigacija (navbar) i podnožje (footer) kao Thymeleaf fragmenti

@@ -38,10 +38,10 @@ public class TerminService {
     }
     public boolean postojiPreklapanje(Termin noviTermin) {
         if (noviTermin.getUsluge() == null || noviTermin.getUsluge().isEmpty()) {
-            return false; // nema usluge, ne proveravamo
+            return false; 
         }
 
-        // Pretpostavka: uvek je samo jedna usluga
+        
         Usluga usluga = noviTermin.getUsluge().stream().findFirst().orElse(null);
         if (usluga == null) return false;
 
